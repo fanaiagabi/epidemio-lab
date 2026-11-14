@@ -43,3 +43,7 @@ Revisão científica, contraste WCAG calculado, leitores de tela reais, Safari e
 Tema escuro fixo solicitado pela usuária. Alterados somente cores CSS, cor da barra do navegador e testes de apresentação; sem alterações nas bases ou cálculos. Não foi adicionado seletor de tema nem armazenamento de preferências.
 
 Teste de navegador ampliado: esquema escuro mesmo com preferência do sistema clara; superfícies escuras nas cinco seções, controles e tabelas; contraste calculado mínimo de 4,5:1 para os pares de texto/fundo dos componentes explicitamente testados. Não equivale a auditoria WCAG integral. A asserção do esquema falhou antes da mudança e passou depois. Suítes Python/Node e fluxo funcional mantidos.
+
+### Correção para visitantes com estilos antigos em cache
+
+GitHub Pages respondeu `Cache-Control: max-age=600`, e o HTML reutilizava a URL `styles.css` da versão clara. O teste `python tests/cache_check.py` reproduziu o problema mantendo o cache real do Chromium: após carregar a versão clara e receber HTML novo, o tema permaneceu claro sem nova solicitação do CSS. O link foi versionado como `styles.css?v=dark-1`; o mesmo teste passou sem limpar cache. O HTML também pode permanecer temporariamente em cache; abrir `?v=dark-1` no endereço da página força uma URL nova para ele. Não foi possível inspecionar diretamente o navegador da usuária.
