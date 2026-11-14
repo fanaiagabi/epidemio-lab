@@ -8,6 +8,31 @@ BASE = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:8080/'
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def check_dark_theme(page):
+    colors = page.evaluate('''() => {
+        const rgb = color => color.match(/[\\d.]+/g).slice(0,3).map(Number);
+        const luminance = color => rgb(color).map(v => {
+            v /= 255;
+            return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4;
+        }).reduce((sum,v,i) => sum + v * [.2126,.7152,.0722][i], 0);
+        return [...document.querySelectorAll('body,.card,.filters,select,.notice,.data-table th,.data-table td,.section-nav a,.download,.hero-art')]
+            .filter(el => el.getClientRects().length)
+            .map(el => {
+                const style = getComputedStyle(el);
+                const background = style.backgroundColor;
+                return {element:el.tagName + '.' + el.className, background,
+                    brightness:luminance(background),
+                    contrast:(luminance(style.color) + .05) / (luminance(background) + .05)};
+            });
+    }''')
+    assert page.evaluate("getComputedStyle(document.documentElement).colorScheme") == 'dark'
+    for color in colors:
+        if color['background'] == 'rgba(0, 0, 0, 0)':
+            continue
+        assert color['brightness'] < .18, color
+        assert color['contrast'] >= 4.5, color
+
+
 def check():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -16,6 +41,8 @@ def check():
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(BASE)
         page.locator('[data-kpi="Incidência"] .kpi-value').wait_for()
+        page.emulate_media(color_scheme='light')
+        check_dark_theme(page)
         assert page.locator('[data-kpi="Incidência"] .kpi-value').inner_text() == '39.345'
         assert page.locator('[data-kpi="Prevalência"] .kpi-value').inner_text() == '41.325'
         assert page.locator('[data-kpi="Óbitos"] .kpi-value').inner_text() == '39.305'
@@ -29,6 +56,8 @@ def check():
         for section in ['incidencia', 'prevalencia', 'mortalidade', 'fontes', 'visao-geral']:
             page.locator(f'nav a[href="#{section}"]').click()
             expect(page.locator(f'nav a[href="#{section}"]')).to_have_attribute('aria-current', 'page')
+            page.locator('details').evaluate_all('(elements) => elements.forEach(el => el.open = true)')
+            check_dark_theme(page)
         page.goto(BASE + '#inexistente')
         expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.locator('nav a[href="#mortalidade"]').click()
@@ -43,13 +72,16 @@ def check():
         results = ROOT / 'test-results'
         results.mkdir(exist_ok=True)
         page.locator('nav a[href="#visao-geral"]').click()
+        expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.screenshot(path=str(results / 'desktop.png'), full_page=True)
         page.set_viewport_size({'width':375, 'height':812})
         for section in ['visao-geral', 'incidencia', 'prevalencia', 'mortalidade', 'fontes']:
             page.locator(f'nav a[href="#{section}"]').click()
             expect(page.locator(f'nav a[href="#{section}"]')).to_have_attribute('aria-current', 'page')
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Transbordamento em {section}'
+            check_dark_theme(page)
         page.locator('nav a[href="#visao-geral"]').click()
+        expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.screenshot(path=str(results / 'mobile.png'), full_page=True)
         page.locator('.skip').focus()
         page.keyboard.press('Tab')

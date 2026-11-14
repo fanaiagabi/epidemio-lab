@@ -37,3 +37,9 @@ Site: https://fanaiagabi.github.io/epidemio-lab/
 ## Não verificado
 
 Revisão científica, contraste WCAG calculado, leitores de tela reais, Safari e Firefox. Não há atualização automática das bases.
+
+## Atualização: modo escuro
+
+Tema escuro fixo solicitado pela usuária. Alterados somente cores CSS, cor da barra do navegador e testes de apresentação; sem alterações nas bases ou cálculos. Não foi adicionado seletor de tema nem armazenamento de preferências.
+
+Teste de navegador ampliado: esquema escuro mesmo com preferência do sistema clara; superfícies escuras nas cinco seções, controles e tabelas; contraste calculado mínimo de 4,5:1 para os pares de texto/fundo dos componentes explicitamente testados. Não equivale a auditoria WCAG integral. A asserção do esquema falhou antes da mudança e passou depois. Suítes Python/Node e fluxo funcional mantidos.
