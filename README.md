@@ -1,6 +1,6 @@
 # EPIDEMIO LAB
 
-Painel educativo estático sobre câncer de traqueia, brônquios e pulmão. Publicação pretendida: https://fanaiagabi.github.io/epidemio-lab/ . Sem backend, analytics ou dependências de produção.
+Painel educativo estático sobre câncer de traqueia, brônquios e pulmão. GitHub Pages configurado em https://fanaiagabi.github.io/epidemio-lab/ . Sem backend, analytics ou dependências de produção.
 
 ## Executar
 
@@ -9,6 +9,14 @@ python -m http.server 8080
 ```
 
 Abra http://localhost:8080 . Não abra `index.html` via `file://`: módulos JavaScript e carregamento do JSON exigem HTTP.
+
+## Validação da primeira versão
+
+Testes Python (4), Node (5) e verificação funcional em Chromium aprovados localmente e no site público, inclusive em subdiretório e em viewport de 375 px. A revisão independente não encontrou bloqueios. Publicação conferida com HTTP 200 e build Pages `built`. [Evidências, decisões e limitações](docs/validation.md). Capturas de validação ficam apenas em `test-results/` (não publicado).
+
+`python tests/browser_check.py URL` executa a checagem funcional contra um servidor local ou site publicado; exige Playwright no ambiente de teste, não no site. Não houve auditoria WCAG numérica, teste com leitor de tela real ou outros navegadores.
+
+Melhorias menores não bloqueantes: ampliar rótulos auxiliares de 8–9 px no celular; testar ausência numérica diretamente na interface (hoje os arquivos são completos e o caso é coberto no modelo); distinguir barra de valor ausente de barra de zero se o contrato dos dados mudar; tornar `unit()` tolerante a medidas novas, se elas forem adicionadas.
 
 ## Dados e testes
 

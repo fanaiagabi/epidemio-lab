@@ -70,10 +70,10 @@
 
 - [x] Rever todo o diff e lista de arquivos para impedir publicação de credenciais, modelos, capturas e dados não autorizados; pedir revisão independente do projeto e corrigir achados comprovados.
 - [x] Rodar testes Python/Node novamente e servir o site localmente; conferir que assets e JSON usam caminhos relativos compatíveis com `/epidemio-lab/`.
-- [ ] Criar repositório remoto público após verificar conflitos e publicar somente commits revisados. Não alterar outros repositórios da conta.
-- [ ] Ativar GitHub Pages na branch `main` pela integração disponível; usar workflow apenas se necessário e se houver permissão. Se não houver, informar bloqueio exato e passo mínimo de ativação.
-- [ ] Conferir resposta HTTP 200 da URL final, título EPIDEMIO LAB, carregamento de assets/JSON e funcionamento básico. Distinguir build pendente de entrega publicada; não anunciar sucesso com 404.
-- [ ] Atualizar checklist e entregar links confirmados, resumo de verificações e limitações científicas.
+- [x] Criar repositório remoto público após verificar conflitos e publicar somente commits revisados. Não alterar outros repositórios da conta.
+- [x] Ativar GitHub Pages na branch `main` pela integração disponível; usar workflow apenas se necessário e se houver permissão. Se não houver, informar bloqueio exato e passo mínimo de ativação.
+- [x] Conferir resposta HTTP 200 da URL final, título EPIDEMIO LAB, carregamento de assets/JSON e funcionamento básico. Distinguir build pendente de entrega publicada; não anunciar sucesso com 404.
+- [x] Atualizar checklist e entregar links confirmados, resumo de verificações e limitações científicas.
 
 ## Revisão do plano
 
@@ -81,4 +81,4 @@ Cobertura conferida com o desenho: filtros, cinco seções, visual próprio, dad
 
 ## Estado
 
-Desenho e execução direta aprovados. Tarefas 1 e 2 implementadas: Python 4/4, Node 5/5, checagem Chromium aprovada na raiz e em subdiretório. Tarefa 3 em progresso: revisão independente antes da publicação.
+Desenho e execução direta aprovados. Três tarefas concluídas: Python 4/4, Node 5/5, Chromium aprovado na raiz, em subdiretório e no site público. Revisão independente sem bloqueios. GitHub Pages `built`, HTTP 200 e título conferido. Evidências, decisões e melhorias adiadas em `docs/validation.md`.
