@@ -86,6 +86,30 @@ Primeira tentativa de verificação durante a propagação usou uma página aber
 5. Acessibilidade além dos componentes/browsers testados não certificada; problemas específicos de tecnologia assistiva ou navegador ainda podem existir.
 6. Meta description permanece epidemiológica por ser a nova seção complementar; resumo em buscadores pode não mencionar a leitura educativa.
 
+## Versão 1.2 — glossário e carga tabágica — 15/11/2026
+
+Usuária autorizou aplicação direta e pediu ambas as visualizações. Botões globais “Glossário” e “Carga tabágica” abrem diálogos em dark mode, sem depender da disponibilidade do JSON epidemiológico.
+
+- Glossário: 21 termos presentes no painel/leituras, definições próprias resumidas e busca insensível a acentos/maiúsculas. Referências educativas existentes mantidas; definição NCI de pack-year vinculada como leitura adicional (página depende de renderização e não foi usada como prova de acesso ao texto pelo fetch).
+- Calculadora: `(cigarros/dia ÷ 20) × anos`, exemplo identificado 10×20=10 maços-ano. Valida vazio/negativo/não finito/overflow, aceita frações e zero. Apenas média diária constante; pausas/mudanças de consumo e outros produtos não são convertidos.
+- Blocos fracionados, agrupados quando necessário em potências de 10 (até 40 elementos), com escala explícita. Linha do tempo e tabela em cinco pontos mostram o mesmo total/duração; eixos ajustados ao exemplo, não faixas clínicas. Nenhuma interpretação de dano/risco, limite seguro ou critério automático de rastreamento.
+- Animações breves, checkbox “Sem animação” e preferência de movimento reduzido; texto e tabela independentes da animação. Sem salvamento de campos ou chamadas de rede durante o uso (testado).
+- Cabeçalho visível ao reabrir, Escape fecha mesmo em busca preenchida, foco retorna ao botão de origem. Erros de dados epidemiológicos não impedem abrir as ferramentas.
+
+### Evidências locais
+
+Commit de implementação `53efe6f`. Testes novos falharam antes do produto por módulo/botão ausente. Regressão de cache education-1→study-1 falhou com app antigo antes de versionar CSS/app e passou depois. Regressão de reabertura falhou com scroll deslocado, passou com reset do scroll.
+
+- `python -m unittest discover -s tests -v`: 5/5.
+- `node --test tests/model.test.mjs tests/study.test.mjs`: 7/7, incluindo frações, zeros, negativos, não finitos, tipos inválidos e overflow.
+- `python tests/study_check.py`: PASS, exemplo, fração .625, totais 400/404 com agrupamento, zero/duração zero, inválidos, restauração, pesquisa/sem resultado, foco/Escape, checkbox e reduced-motion, 375/720/1440 px sem overflow, ferramentas com falha JSON, campos sem rede/storage.
+- `python tests/browser_check.py`: PASS, funcionalidades anteriores/teclado/dark mode/375 px e KPIs preservados.
+- `python tests/cache_check.py`: PASS, três cenários de cache real: claro→escuro, versão inicial→educativa, educativa→ferramentas.
+- Capturas locais `test-results/smoking-1440.png`, `smoking-375.png`, `glossary-375.png` inspecionadas.
+- `git diff --check`: sem erros; `git diff --exit-code ed4789f -- data data-model.mjs`: vazio.
+
+Revisão independente e publicação ainda pendentes nesta anotação. Sem revisão médica especializada, WCAG integral, leitor de tela real, Safari ou Firefox; limitações anteriores continuam.
+
 ### Revisão independente pré-publicação
 
 Revisão do range `91f914f..e41fb4c`: nenhum achado crítico ou importante; parecer favorável à publicação. Repetiu Python 5/5, Node 5/5, navegador e os dois cenários de cache. Conferiu data, edição TNM e escopo da SBOC v8, sem certificar exatidão médica de toda a prosa. Paginação indicada nos cards conferida pelo implementador com os marcadores de página das extrações (contagem física dos PDFs), não por auditoria do revisor.

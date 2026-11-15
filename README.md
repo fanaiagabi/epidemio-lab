@@ -23,10 +23,19 @@ Melhorias menores não bloqueantes: ampliar rótulos auxiliares de 8–9 px no c
 ```sh
 python scripts/prepare_data.py
 python -m unittest discover -s tests -v
-node --test tests/model.test.mjs
+node --test tests/model.test.mjs tests/study.test.mjs
+python tests/browser_check.py
+python tests/study_check.py
+python tests/cache_check.py
 ```
 
 Quatro CSVs agregados fornecidos pela responsável pelo projeto estão em `data/source/`. Três atribuídos ao GBD (2013–2023) e um ao SIM/TABNET (Mato Grosso, agregado rotulado 2016–2026). `data/epidemiologia.json` preserva campos e valores sem arredondamento. Exibição arredondada não altera as fontes.
+
+## Ferramentas de estudo
+
+Os botões no topo abrem um glossário pesquisável e uma calculadora de carga tabágica com blocos e linha do tempo. Cálculo: `(cigarros/dia ÷ 20) × anos de consumo`, para uma média diária constante. Mede exposição em maços-ano, não dano pulmonar ou probabilidade individual de câncer. Não converte outros produtos nem avalia períodos variáveis. Campos não são armazenados ou enviados; animações respeitam movimento reduzido e têm opção de desativação. As ferramentas funcionam mesmo se o JSON epidemiológico falhar.
+
+`python tests/study_check.py URL` aceita endereço local ou público e verifica as ferramentas em Chromium; Playwright é necessário apenas no ambiente de testes.
 
 Não houve autenticação independente da origem oficial ou revisão científica. A unidade por 100 mil habitantes foi indicada nas três capturas GBD recebidas; as capturas não são republicadas. Não assumir que taxas sejam ajustadas por idade. Intervalos de incerteza existem somente para 2023. Percentuais GBD não são exibidos por falta de documentação do denominador. Arquivos chamados `modelo_mortalidade_cancer_inca_*`, capturas, ZIP e arquivos de links vazios foram excluídos da publicação.
 
