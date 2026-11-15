@@ -108,7 +108,7 @@ Commit de implementação `53efe6f`. Testes novos falharam antes do produto por 
 - Capturas locais `test-results/smoking-1440.png`, `smoking-375.png`, `glossary-375.png` inspecionadas.
 - `git diff --check`: sem erros; `git diff --exit-code ed4789f -- data data-model.mjs`: vazio.
 
-Revisão independente e publicação ainda pendentes nesta anotação. Sem revisão médica especializada, WCAG integral, leitor de tela real, Safari ou Firefox; limitações anteriores continuam.
+Sem revisão médica especializada, WCAG integral, leitor de tela real, Safari ou Firefox; limitações anteriores continuam.
 
 Conferência editorial adicional: NCI, “Harms of Cigarette Smoking and Health Benefits of Quitting” (página revisada em 19/12/2017, acessada em 15/11/2026): cessação reduz riscos mesmo em idades mais avançadas e não há nível seguro de consumo. Não extraímos percentuais para a calculadora nem inferimos queda de exposição acumulada após parar. https://www.cancer.gov/about-cancer/causes-prevention/risk/tobacco/cessation-fact-sheet.
 
@@ -117,6 +117,12 @@ Conferência editorial adicional: NCI, “Harms of Cigarette Smoking and Health 
 Revisão do range `91f914f..e41fb4c`: nenhum achado crítico ou importante; parecer favorável à publicação. Repetiu Python 5/5, Node 5/5, navegador e os dois cenários de cache. Conferiu data, edição TNM e escopo da SBOC v8, sem certificar exatidão médica de toda a prosa. Paginação indicada nos cards conferida pelo implementador com os marcadores de página das extrações (contagem física dos PDFs), não por auditoria do revisor.
 
 Melhorias menores adiadas: conteúdo educativo estático depende do carregamento do JSON epidemiológico, assim como Fontes (se falhar, há erro e botão de nova tentativa); indentação de dois links da navegação é apenas cosmética. Verificação adicional do implementador em 441, 720 e 999 px, com respostas abertas: sem overflow. Descrição de busca permanece epidemiológica; a nova seção é complementar. Limites científicos e de acessibilidade continuam os declarados acima.
+
+### Revisão independente pré-publicação das ferramentas de estudo
+
+Range `ed4789f..53efe6f`: parecer favorável (`ready to publish: yes`), nenhum achado crítico ou importante. O revisor repetiu Python 5/5, Node 7/7, browser_check, study_check e os três cenários do cache_check contra o servidor local; `git diff --check` limpo e `data/` + `data-model.mjs` intactos no range. Confirmou no código os pontos do Review Focus (inválido nunca vira zero nem mantém resultado antigo; agrupamento com guarda para totais grandes; linha do tempo honesta na duração zero; foco/Escape/reduced-motion; visitantes com cache education-1 recebem as ferramentas).
+
+Melhorias menores adiadas: flicker momentâneo de foco no link calculadora→glossário (estado final correto e testado) e texto de escala exibido junto à mensagem de zero blocos (redundância cosmética).
 
 ### Limites desta atualização
 
