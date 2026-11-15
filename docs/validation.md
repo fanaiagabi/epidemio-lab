@@ -71,6 +71,12 @@ Desenho e execução aprovados na conversa. Nova aba `#entenda`, cinco grupos de
 - `git diff --check`: sem erros; avisos Git de normalização LF/CRLF no Windows não são falha de teste.
 - Publicação ainda pendente nesta anotação; resultado público será registrado após deploy e teste real.
 
+### Revisão independente pré-publicação
+
+Revisão do range `91f914f..e41fb4c`: nenhum achado crítico ou importante; parecer favorável à publicação. Repetiu Python 5/5, Node 5/5, navegador e os dois cenários de cache. Conferiu data, edição TNM e escopo da SBOC v8, sem certificar exatidão médica de toda a prosa. Paginação indicada nos cards conferida pelo implementador com os marcadores de página das extrações (contagem física dos PDFs), não por auditoria do revisor.
+
+Melhorias menores adiadas: conteúdo educativo estático depende do carregamento do JSON epidemiológico, assim como Fontes (se falhar, há erro e botão de nova tentativa); indentação de dois links da navegação é apenas cosmética. Verificação adicional do implementador em 441, 720 e 999 px, com respostas abertas: sem overflow. Descrição de busca permanece epidemiológica; a nova seção é complementar. Limites científicos e de acessibilidade continuam os declarados acima.
+
 ### Limites desta atualização
 
 Sem auditoria WCAG integral, leitores de tela reais, Safari ou Firefox; contraste verificado apenas nos componentes selecionados pelo teste. As fontes clínicas e os links não têm atualização automática. Revisão de código não equivale a validação médica.
