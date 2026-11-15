@@ -7,8 +7,8 @@
   <meta name="description" content="Explore incidência, prevalência e mortalidade por câncer de traqueia, brônquios e pulmão. Painel educativo com dados agregados e fontes transparentes.">
   <title>EPIDEMIO LAB · Câncer de pulmão</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=education-1">
-  <script type="module" src="./app.js?v=education-1"></script>
+  <link rel="stylesheet" href="./styles.css?v=study-1">
+  <script type="module" src="./app.js?v=study-1"></script>
 </head>
 <body>
   <a class="skip" href="#main">Pular para o conteúdo</a>
@@ -20,6 +20,12 @@
       </a>
       <div class="top-actions"><span class="status"><i></i> PAINEL EDUCATIVO</span><a class="button quiet" href="#fontes">Fontes e metodologia <span aria-hidden="true">↗</span></a></div>
     </header>
+
+    <div class="study-actions" role="group" aria-label="Ferramentas de estudo">
+      <span class="eyebrow">FERRAMENTAS DE ESTUDO</span>
+      <button class="button" id="open-glossary" data-open-study="glossary-dialog" aria-haspopup="dialog"><span aria-hidden="true">Aa</span> Glossário</button>
+      <button class="button" id="open-smoking" data-open-study="smoking-dialog" aria-haspopup="dialog"><svg width="18" height="20" viewBox="0 0 18 20" fill="none" stroke="currentColor" aria-hidden="true"><rect x="1" y="1" width="16" height="18" rx="3"/><path d="M4 5h10M4 10h2m3 0h2m2 0h1M4 14h2m3 0h2m2 0h1"/></svg> Carga tabágica</button>
+    </div>
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
@@ -130,7 +136,64 @@
         </section>
       </div>
     </main>
-    <footer class="footer"><div><b>EPIDEMIO <span>LAB</span></b><p>Explorar dados. Compreender contextos.</p></div><p>Versão 1.1 · Projeto educativo independente<br>Dados e leituras para estudo · Sem atualização automática</p><a href="https://github.com/fanaiagabi/epidemio-lab">Ver o projeto no GitHub ↗</a></footer>
+    <footer class="footer"><div><b>EPIDEMIO <span>LAB</span></b><p>Explorar dados. Compreender contextos.</p></div><p>Versão 1.2 · Projeto educativo independente<br>Dados e leituras para estudo · Sem atualização automática</p><a href="https://github.com/fanaiagabi/epidemio-lab">Ver o projeto no GitHub ↗</a></footer>
   </div>
+
+  <dialog class="study-dialog" id="smoking-dialog" aria-labelledby="smoking-title" aria-describedby="smoking-disclaimer">
+    <div class="study-dialog-heading"><div><div class="eyebrow">SIMULADOR · EXPOSIÇÃO ACUMULADA</div><h2 id="smoking-title">Carga tabágica</h2></div><button class="button" data-close-study aria-label="Fechar calculadora">Fechar <span aria-hidden="true">×</span></button></div>
+    <p id="smoking-disclaimer" class="notice"><strong>Maços-ano mede exposição ao cigarro.</strong> Não mede dano pulmonar nem calcula a probabilidade individual de câncer. Não há classificação de risco ou limite seguro nesta ferramenta.</p>
+    <form id="smoking-form" novalidate>
+      <p class="study-muted">Exemplo inicial: 10 cigarros por dia durante 20 anos. Altere os campos para explorar outros valores.</p>
+      <div class="study-inputs">
+        <label for="cigarettes">Cigarros por dia<input id="cigarettes" type="number" min="0" step="any" value="10" required inputmode="decimal" aria-describedby="smoking-assumptions smoking-error" autofocus></label>
+        <label for="smoking-years">Anos de consumo<input id="smoking-years" type="number" min="0" step="any" value="20" required inputmode="decimal" aria-describedby="smoking-assumptions smoking-error"></label>
+        <button type="button" class="button" id="restore-smoking">Restaurar exemplo</button>
+      </div>
+    </form>
+    <p id="smoking-assumptions" class="study-muted">Consideramos 20 cigarros por maço e a mesma média diária ao longo dos anos. Aceita frações. Use apenas anos em que houve consumo, não a idade atual.</p>
+    <p id="smoking-error" role="status" hidden>Preencha os dois campos com números finitos, iguais ou maiores que zero. O resultado também precisa ser finito.</p>
+    <label class="motion-control"><input id="no-motion" type="checkbox"> Sem animação</label>
+    <div id="smoking-output">
+      <div class="exposure-result" aria-live="polite" aria-atomic="true"><span class="eyebrow">EXPOSIÇÃO CALCULADA</span><output id="smoking-result" for="cigarettes smoking-years"></output><p id="smoking-formula"></p></div>
+      <div class="exposure-views">
+        <section class="card" aria-labelledby="blocks-title"><h3 id="blocks-title">01 · Blocos de exposição</h3><p class="study-muted" id="block-scale"></p><div id="exposure-blocks" aria-hidden="true"></div><p id="blocks-zero" class="study-muted" hidden>Sem blocos: exposição calculada de 0 maços-ano.</p><p class="study-muted">Partes de um bloco representam frações. Quando necessário, agrupamos a escala para manter a leitura.</p></section>
+        <section class="card" aria-labelledby="timeline-title"><h3 id="timeline-title">02 · Linha do tempo</h3><p class="study-muted">Vertical: exposição acumulada (maços-ano). Horizontal: anos decorridos de consumo.</p><svg id="timeline-chart" viewBox="0 0 440 205" role="img" aria-label="Acúmulo de exposição com média diária constante. Valores na tabela abaixo." aria-describedby="timeline-end"></svg><p id="timeline-end" class="timeline-end"></p><p class="study-muted">Do início (0) ao total informado. Os eixos se ajustam ao exemplo; não representam evolução de dano.</p><details class="tables"><summary>Ver linha do tempo em tabela</summary><div class="table-scroll"><table id="timeline-table" class="data-table"><caption>Exposição acumulada com consumo médio constante</caption><thead><tr><th scope="col">Tempo de consumo</th><th scope="col">Maços-ano</th></tr></thead><tbody></tbody></table></div></details></section>
+      </div>
+    </div>
+    <p class="study-muted">Fórmula: (cigarros por dia ÷ 20) × anos de consumo. <button type="button" class="text-link" id="study-glossary-link">O que significa maços-ano?</button></p>
+    <p class="study-muted">Não converte cigarros eletrônicos, charutos ou outros produtos. Se o consumo mudou ou houve pausas, a história deve ser avaliada por períodos; esta simulação usa uma única média. Parar de fumar traz benefícios, mas não apaga a exposição já acumulada.</p>
+    <p class="study-muted">Valores digitados ficam somente nesta página: não são salvos nem enviados. Referências: definição de maços-ano do <a href="https://www.cancer.gov/publications/dictionaries/cancer-terms/def/pack-year">National Cancer Institute ↗</a> e leituras educativas listadas em Fontes. Não substitui avaliação profissional.</p>
+  </dialog>
+
+  <dialog class="study-dialog glossary-dialog" id="glossary-dialog" aria-labelledby="glossary-title">
+    <div class="study-dialog-heading"><div><div class="eyebrow">CONSULTA RÁPIDA</div><h2 id="glossary-title">Glossário</h2></div><button class="button" data-close-study aria-label="Fechar glossário">Fechar <span aria-hidden="true">×</span></button></div>
+    <p class="study-muted">Conceitos para acompanhar o painel. Definições educativas resumidas, não orientações de diagnóstico ou tratamento.</p>
+    <label for="glossary-search">Buscar termo<input type="search" id="glossary-search" placeholder="Ex.: incidência, TNM, maços-ano" autofocus></label>
+    <p id="glossary-count" class="study-muted" role="status"></p><p id="glossary-empty" hidden>Nenhum termo encontrado. Tente outra palavra.</p>
+    <dl id="glossary-list">
+      <div><dt>Adjuvante</dt><dd>Tratamento realizado depois do tratamento principal, como uma cirurgia, para reduzir o risco de recorrência em situações indicadas.</dd></div>
+      <div><dt>Biomarcador</dt><dd>Característica biológica mensurável que pode ajudar a compreender uma doença ou orientar decisões em contextos específicos. Não define sozinho um diagnóstico ou tratamento.</dd></div>
+      <div><dt>Células não pequenas (CPCNP)</dt><dd>Grupo de cânceres de pulmão que inclui adenocarcinoma e carcinoma escamoso. Diferencia-se do câncer de pequenas células na classificação e no cuidado.</dd></div>
+      <div><dt>Cuidados paliativos</dt><dd>Cuidados ativos para aliviar sofrimento e apoiar qualidade de vida. Podem acompanhar terapias contra o câncer desde cedo e não significam abandono do tratamento.</dd></div>
+      <div><dt>Estadiamento</dt><dd>Avaliação da extensão da doença no organismo. Ajuda a planejar o cuidado e depende dos exames, do tipo de tumor e da edição do sistema utilizado.</dd></div>
+      <div><dt>GBD</dt><dd>Global Burden of Disease: estudo de carga global de doenças. Neste painel, identifica estimativas populacionais fornecidas para estudo, não registros individuais.</dd></div>
+      <div><dt>Histologia</dt><dd>Estudo dos tecidos ao microscópio. Ajuda a classificar o tumor, em conjunto com outras análises quando necessárias.</dd></div>
+      <div><dt>Imunoterapia</dt><dd>Tratamento que modifica a resposta do sistema imune contra o tumor. Indicação, benefícios e toxicidades dependem do cenário clínico.</dd></div>
+      <div><dt>Incidência</dt><dd>Casos novos de uma doença em uma população durante um período. Não é o total de pessoas que já vivem com a doença.</dd></div>
+      <div><dt>Intervalo de incerteza (UI 95%)</dt><dd>Faixa que expressa a incerteza de uma estimativa, conforme o método da fonte. Não é uma faixa de risco individual nem prova isolada de diferença entre grupos.</dd></div>
+      <div><dt>Maços-ano</dt><dd>Medida de exposição acumulada ao cigarro: maços por dia multiplicados pelos anos de consumo. Considerando 20 cigarros por maço, 10 cigarros/dia por 20 anos = 10 maços-ano. Não calcula dano pulmonar ou probabilidade individual de câncer.</dd></div>
+      <div><dt>Metástase</dt><dd>Disseminação de células de um câncer para outro local do organismo, formando lesões relacionadas ao tumor de origem.</dd></div>
+      <div><dt>Mortalidade</dt><dd>Mortes atribuídas a uma doença em uma população e período. Pode ser apresentada como contagem ou taxa; não é sinônimo de letalidade entre pessoas diagnosticadas.</dd></div>
+      <div><dt>Neoadjuvante</dt><dd>Tratamento realizado antes do tratamento principal, como uma cirurgia, em situações indicadas.</dd></div>
+      <div><dt>PD-L1</dt><dd>Proteína avaliada por imuno-histoquímica que pode participar da escolha de imunoterapia. Não é sinônimo de mutação e seu valor isolado não define uma conduta.</dd></div>
+      <div><dt>Prevalência</dt><dd>Pessoas vivendo com uma doença em uma população no momento ou período considerado. Inclui casos já existentes, não apenas casos novos.</dd></div>
+      <div><dt>Rastreamento</dt><dd>Busca de doença em pessoas sem sintomas, dentro de critérios definidos. É diferente de investigar sintomas e exige discussão de benefícios e possíveis danos.</dd></div>
+      <div><dt>SIM / TABNET</dt><dd>SIM é o Sistema de Informações sobre Mortalidade; TABNET é uma ferramenta de tabulação do DATASUS. Os arquivos recebidos têm recortes próprios, diferentes dos dados GBD.</dd></div>
+      <div><dt>Taxa por 100 mil habitantes</dt><dd>Medida que relaciona eventos à população, expressa por 100 mil habitantes. Taxas de todas as idades não eliminam diferenças de estrutura etária e não são probabilidades individuais.</dd></div>
+      <div><dt>Terapia-alvo</dt><dd>Tratamento dirigido a alterações moleculares específicas. Depende da presença da alteração e da indicação clínica; não é sinônimo de imunoterapia.</dd></div>
+      <div><dt>TNM</dt><dd>Sistema de estadiamento: T descreve o tumor primário, N os linfonodos regionais e M as metástases à distância. A edição utilizada importa; o glossário não classifica casos.</dd></div>
+    </dl>
+    <p class="study-muted">Base: conceitos epidemiológicos já descritos no painel, revisões de 2023/2025 e diretriz SBOC 2026 v8. Referências completas na seção Fontes e cuidados. Redação resumida para estudo; sem atualização automática.</p>
+  </dialog>
 </body>
 </html>

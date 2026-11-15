@@ -61,8 +61,8 @@ def check():
         worker.join()
 
 
-def check_education_update():
-    previous = {path: subprocess.check_output([str(GIT), 'show', f'3e7de3a:{path}'], cwd=ROOT)
+def check_education_update(revision='3e7de3a', study=False):
+    previous = {path: subprocess.check_output([str(GIT), 'show', f'{revision}:{path}'], cwd=ROOT)
                 for path in ['index.html', 'styles.css', 'app.js']}
     state = {'updated': False, 'scripts_requested': []}
 
@@ -98,16 +98,27 @@ def check_education_update():
             url = f'http://127.0.0.1:{server.server_port}/'
             page.goto(url)
             page.locator('[data-kpi]').first.wait_for()
-            assert page.locator('nav a[href="#entenda"]').count() == 0
+            if study:
+                assert page.get_by_role('button', name='Carga tabágica', exact=True).count() == 0
+            else:
+                assert page.locator('nav a[href="#entenda"]').count() == 0
             state['updated'] = True
             page.goto(url + '?updated=1#entenda')
             expect(page.locator('#education-section')).to_be_visible(timeout=5000)
             expect(page.locator('nav a[href="#entenda"]')).to_have_attribute('aria-current', 'page')
+            if study:
+                page.get_by_role('button', name='Carga tabágica', exact=True).click()
+                expect(page.locator('#smoking-dialog')).to_be_visible()
+                expect(page.locator('#smoking-result')).to_have_text('10 maços-ano')
+                page.keyboard.press('Escape')
+                page.get_by_role('button', name='Glossário', exact=True).click()
+                expect(page.locator('#glossary-dialog')).to_be_visible()
+                assert page.locator('#glossary-dialog').evaluate('(el)=>getComputedStyle(el).backgroundColor') == 'rgb(16, 24, 21)'
             assert page.evaluate('getComputedStyle(document.documentElement).colorScheme') == 'dark'
             assert not errors, errors
             assert len(state['scripts_requested']) == 2, state['scripts_requested']
             browser.close()
-        print('PASS: visitante da versão anterior recebe a aba educativa com cache real preservado.')
+        print(f'PASS: visitante de {revision} recebe {"ferramentas de estudo" if study else "a aba educativa"} com cache real preservado.')
     finally:
         server.shutdown()
         server.server_close()
@@ -117,3 +128,4 @@ def check_education_update():
 if __name__ == '__main__':
     check()
     check_education_update()
+    check_education_update('ed4789f', study=True)

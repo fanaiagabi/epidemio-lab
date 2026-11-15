@@ -1,4 +1,5 @@
 import {selectGbd, valueForYear, variation, simDistribution} from './data-model.mjs';
+import {initStudyTools} from './study-tools.mjs?v=study-1';
 
 const $ = id => document.getElementById(id);
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -163,5 +164,6 @@ $('reset').addEventListener('click',()=>{
   if(data)render();
 });
 window.addEventListener('hashchange',navigate);
+initStudyTools();
 navigate();
 load();
