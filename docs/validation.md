@@ -71,6 +71,21 @@ Desenho e execução aprovados na conversa. Nova aba `#entenda`, cinco grupos de
 - `git diff --check`: sem erros; avisos Git de normalização LF/CRLF no Windows não são falha de teste.
 - Publicação ainda pendente nesta anotação; resultado público será registrado após deploy e teste real.
 
+### Resultado público confirmado
+
+Publicação validada em 15/11/2026: push fast-forward `3e7de3a..02d8d60` para `origin/main`; API GitHub Pages `built` no commit `02d8d604e2359a4585d080faedb06b3f91a0e1fb`, sem erro. HTTP 200 com nova seção e script `app.js?v=education-1` no HTML. `python tests/browser_check.py 'https://fanaiagabi.github.io/epidemio-lab/?v=education-1'`: PASS no site público, seis abas, acesso direto/reload, referências compartilhadas, dark mode, 375 px sem overflow com respostas abertas, teclado, KPIs preservados, erro de rede/recuperação e nenhuma exceção JavaScript.
+
+Primeira tentativa de verificação durante a propagação usou uma página aberta antes do build: o fetch sem cache detectou HTML novo, mas reload daquela navegação ainda apresentou HTML antigo. Nova execução em navegador limpo após `built` passou; não houve mudança de produto para mascarar a falha. URL de entrega: https://fanaiagabi.github.io/epidemio-lab/?v=education-1#entenda.
+
+### Decisões de execução desta versão
+
+1. Texto clínico, datas e privacidade conferidos editorialmente, sem testes frágeis de redação; testes automatizados cobrem links, IDs e comportamento. Risco: mudanças de texto exigem nova revisão editorial.
+2. Publicação ficou depois da revisão independente, embora a ordem do plano a listasse antes. Sem risco ao produto; a validação pública ocorreu após o gate.
+3. Exatidão médica além do cruzamento documental não certificada: conteúdo educativo, datas e limites explícitos, sem doses. Uso clínico/acadêmico requer revisão especializada.
+4. Paginação dos tópicos conferida pelo implementador pelos marcadores físicos das extrações, não pelo revisor; números do visualizador podem diferir.
+5. Acessibilidade além dos componentes/browsers testados não certificada; problemas específicos de tecnologia assistiva ou navegador ainda podem existir.
+6. Meta description permanece epidemiológica por ser a nova seção complementar; resumo em buscadores pode não mencionar a leitura educativa.
+
 ### Revisão independente pré-publicação
 
 Revisão do range `91f914f..e41fb4c`: nenhum achado crítico ou importante; parecer favorável à publicação. Repetiu Python 5/5, Node 5/5, navegador e os dois cenários de cache. Conferiu data, edição TNM e escopo da SBOC v8, sem certificar exatidão médica de toda a prosa. Paginação indicada nos cards conferida pelo implementador com os marcadores de página das extrações (contagem física dos PDFs), não por auditoria do revisor.

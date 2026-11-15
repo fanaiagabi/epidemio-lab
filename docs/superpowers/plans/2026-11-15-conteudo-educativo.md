@@ -67,6 +67,12 @@
 - [ ] **Step 5: Revisão e commit.** Revisar diff completo, confirmar `git diff 2bbaaaa -- data data-model.mjs` vazio e que nenhum PDF/material privado entrou no índice. Registrar aprovação editorial ainda não especializada. Commit `fix: version educational release assets and record checks`.
 - [ ] **Step 6: Publicar e conferir.** Push da branch isolada para `origin/main` conforme autorização existente, sem sobrescrever atualizações remotas divergentes. Confirmar o novo HTML no Pages e executar `python tests/browser_check.py "https://fanaiagabi.github.io/epidemio-lab/?v=education-1"`; só então relatar publicação. Se a publicação falhar ou continuar pendente, informar estado real sem declarar conclusão.
 
-## Self-review
+## Resultado da execução — 15/11/2026
+
+- [x] Task 1, steps 1–6: testes RED→GREEN, conteúdo/rota/bibliografia implementados e commit `3e461dd`.
+- [x] Task 2, steps 1–5: cache RED→GREEN, assets versionados, suítes aprovadas, evidências e revisão independente sem crítico/importante, commits `e41fb4c` e `02d8d60`.
+- [x] Task 2, step 6: push normal para main, build `built` em `02d8d60` e teste Chromium completo no endereço público aprovado. Notas de decisões, menores adiados e limitações em `docs/validation.md`.
+
+## Self-review original
 
 Todos os itens de aceite têm entrega e teste nas Tasks 1/2; os cinco riscos acima estão cobertos. Bibliografia estática evita duplicação e mantém conteúdo editorial fora das strings longas de renderização. Não há nova API, infraestrutura ou dependência. Execução aguarda escolha do método pela usuária.
