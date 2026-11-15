@@ -124,6 +124,10 @@ Range `ed4789f..53efe6f`: parecer favorável (`ready to publish: yes`), nenhum a
 
 Melhorias menores adiadas: flicker momentâneo de foco no link calculadora→glossário (estado final correto e testado) e texto de escala exibido junto à mensagem de zero blocos (redundância cosmética).
 
+### Resultado público confirmado
+
+Publicação validada em 15/11/2026: push fast-forward `ed4789f..79a97c8` para `origin/main`. O HTML público passou a referenciar `app.js?v=study-1` em menos de um minuto (a primeira leitura ainda serviu o HTML anterior, como na publicação anterior; releitura sem cache confirmou a troca). `python tests/browser_check.py 'https://fanaiagabi.github.io/epidemio-lab/?v=study-1'`: PASS com 14 checagens no site público. `python tests/study_check.py 'https://fanaiagabi.github.io/epidemio-lab/?v=study-1'`: PASS com 11 checagens — cálculo, frações/agrupamento, linha do tempo/tabela, zero/inválidos, glossário/busca, foco/teclado, reduced-motion, 375 px, sem persistência ou envio de campos, independência do JSON e sem erros JS. URL de entrega: https://fanaiagabi.github.io/epidemio-lab/?v=study-1
+
 ### Limites desta atualização
 
 Sem auditoria WCAG integral, leitores de tela reais, Safari ou Firefox; contraste verificado apenas nos componentes selecionados pelo teste. As fontes clínicas e os links não têm atualização automática. Revisão de código não equivale a validação médica.

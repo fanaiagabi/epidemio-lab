@@ -31,9 +31,9 @@
 ### Task 2: Revisão e publicação
 **Files:** docs/validation.md e este plano.
 **Interfaces:** entrega pública ?v=study-1, sem backend.
-- [ ] Uma revisão independente do diff completo, corrigir achados importantes.
-- [ ] Conferir integridade dos dados e git diff --check, registrar evidências reais.
-- [ ] Commit e push fast-forward para main, verificar build Pages e rodar testes público existentes + study_check; documentar resultado e limites.
+- [x] Uma revisão independente do diff completo, corrigir achados importantes.
+- [x] Conferir integridade dos dados e git diff --check, registrar evidências reais.
+- [x] Commit e push fast-forward para main, verificar build Pages e rodar testes público existentes + study_check; documentar resultado e limites.
 
 ## Progresso
 - Baseline ed4789f, worktree limpa/isolada; Python 5/5, Node 5/5 e browser_check PASS.
