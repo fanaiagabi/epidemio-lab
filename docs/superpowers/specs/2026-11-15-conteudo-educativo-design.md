@@ -2,7 +2,7 @@
 
 ## Intenção e aprovação
 
-Ampliar o EPIDEMIO LAB com uma síntese em português dos cinco documentos únicos recebidos, para conectar a exploração epidemiológica ao estudo da doença. A usuária escolheu a opção de conteúdo integrado. Este desenho curto aguarda aprovação antes de implementação e publicação.
+Ampliar o EPIDEMIO LAB com uma síntese em português dos cinco documentos únicos recebidos, para conectar a exploração epidemiológica ao estudo da doença. A usuária escolheu a opção de conteúdo integrado e aprovou este desenho para implementação, testes e publicação em 15/11/2026.
 
 ## Abordagens
 
