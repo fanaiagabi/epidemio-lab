@@ -45,3 +45,14 @@ select:hover{border-color:var(--accent)}
 .bar-row:nth-child(4) .bar-fill{background:#c5af84}
 .section-divider,.sim-summary{border-color:var(--line)}
 .prose{color:#bacbbf}
+
+.section-nav{grid-template-columns:repeat(6,minmax(0,1fr))}
+.education-intro{max-width:80ch;color:var(--muted);margin:22px 0}
+.education-grid{margin-bottom:22px;align-items:start}
+#education-section .prose,#education-references{font-size:14px;overflow-wrap:anywhere}
+#education-section .source-note,#education-references .source-note{font-size:12px}
+#education-section details{border-top:1px solid var(--line);padding:14px 0}
+#education-section summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.education-references{margin-top:22px}
+.education-references li+li{margin-top:20px}
+@media(max-width:1000px){.section-nav{grid-template-columns:repeat(3,minmax(0,1fr))}.section-nav a:last-child{grid-column:auto}}

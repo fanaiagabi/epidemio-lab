@@ -48,16 +48,41 @@ def check():
         assert page.locator('[data-kpi="Óbitos"] .kpi-value').inner_text() == '39.305'
         page.get_by_role('combobox', name='Localidade GBD', exact=True).select_option('Mato Grosso')
         assert page.locator('[data-kpi="Incidência"] .kpi-value').inner_text() == '548'
+        page.locator('nav a[href="#entenda"]').click(timeout=5000)
+        expect(page.locator('#education-section')).to_be_visible()
+        expect(page.locator('#education-references')).to_be_visible()
+        for selector in ['#filters', '#gbd-content', '#sim-section', '#sources-section']:
+            expect(page.locator(selector)).to_be_hidden()
+        summary = page.locator('#perguntas-revisao summary').first
+        summary.focus()
+        page.keyboard.press('Enter')
+        expect(page.locator('#perguntas-revisao details').first).to_have_attribute('open', '')
+        page.locator('nav a[href="#fontes"]').click()
+        expect(page.locator('#education-references')).to_be_visible()
+        expect(page.locator('#education-section')).to_be_hidden()
+        page.locator('nav a[href="#visao-geral"]').click()
+        expect(page.locator('#education-references')).to_be_hidden()
+        expect(page.locator('#filters')).to_be_visible()
+        assert page.locator('[data-kpi="Incidência"] .kpi-value').inner_text() == '548'
         page.get_by_role('combobox', name='Sexo GBD', exact=True).select_option('Feminino')
         page.get_by_role('combobox', name='Ano GBD', exact=True).select_option('2013')
         assert 'não disponível' in page.locator('[data-kpi="Incidência"]').inner_text().lower()
         page.get_by_role('button', name='Restaurar filtros').click()
         assert page.get_by_role('combobox', name='Localidade GBD', exact=True).input_value() == 'Brasil'
-        for section in ['incidencia', 'prevalencia', 'mortalidade', 'fontes', 'visao-geral']:
+        for section in ['incidencia', 'prevalencia', 'mortalidade', 'entenda', 'fontes', 'visao-geral']:
             page.locator(f'nav a[href="#{section}"]').click()
             expect(page.locator(f'nav a[href="#{section}"]')).to_have_attribute('aria-current', 'page')
             page.locator('details').evaluate_all('(elements) => elements.forEach(el => el.open = true)')
             check_dark_theme(page)
+        page.goto(BASE + '#entenda')
+        page.reload()
+        expect(page.locator('#education-section')).to_be_visible()
+        expect(page.locator('nav a[href="#entenda"]')).to_have_attribute('aria-current', 'page')
+        expect(page.locator('#filters')).to_be_hidden()
+        page.locator('#education-section details').evaluate_all('(elements) => elements.forEach(el => el.open = true)')
+        results = ROOT / 'test-results'
+        results.mkdir(exist_ok=True)
+        page.screenshot(path=str(results / 'education-desktop.png'), full_page=True)
         page.goto(BASE + '#inexistente')
         expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.locator('nav a[href="#mortalidade"]').click()
@@ -75,11 +100,14 @@ def check():
         expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.screenshot(path=str(results / 'desktop.png'), full_page=True)
         page.set_viewport_size({'width':375, 'height':812})
-        for section in ['visao-geral', 'incidencia', 'prevalencia', 'mortalidade', 'fontes']:
+        for section in ['visao-geral', 'incidencia', 'prevalencia', 'mortalidade', 'entenda', 'fontes']:
             page.locator(f'nav a[href="#{section}"]').click()
             expect(page.locator(f'nav a[href="#{section}"]')).to_have_attribute('aria-current', 'page')
+            page.locator('details').evaluate_all('(elements) => elements.forEach(el => el.open = true)')
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Transbordamento em {section}'
             check_dark_theme(page)
+            if section == 'entenda':
+                page.screenshot(path=str(results / 'education-mobile.png'), full_page=True)
         page.locator('nav a[href="#visao-geral"]').click()
         expect(page.locator('nav a[href="#visao-geral"]')).to_have_attribute('aria-current', 'page')
         page.screenshot(path=str(results / 'mobile.png'), full_page=True)
@@ -96,7 +124,7 @@ def check():
         failed.get_by_role('button', name='Tentar novamente').click()
         failed.locator('[data-kpi="Incidência"]').wait_for()
         browser.close()
-    print(json.dumps({'browser':'Chromium', 'result':'PASS', 'checks':['KPIs CSV','filtros','restaurar','cinco abas','hash inválido','SIM independente','taxas','375px sem overflow','teclado','erro de rede e recuperação','sem erros JS']}, ensure_ascii=False))
+    print(json.dumps({'browser':'Chromium', 'result':'PASS', 'checks':['KPIs CSV','filtros preservados','restaurar','seis abas','Entenda direto e reload','bibliografia compartilhada','hash inválido','SIM independente','taxas','375px sem overflow','respostas por teclado','dark mode','erro de rede e recuperação','sem erros JS']}, ensure_ascii=False))
 
 
 if __name__ == '__main__':

@@ -13,6 +13,7 @@ const sections = {
   incidencia:['NOVOS CASOS','Incidência: o início de cada história'],
   prevalencia:['PESSOAS VIVENDO COM A DOENÇA','Prevalência: além dos novos casos'],
   mortalidade:['ESTIMATIVAS E REGISTROS','Mortalidade: duas bases, diferentes recortes'],
+  entenda:['DOS DADOS AO CUIDADO','Entenda o câncer de pulmão'],
   fontes:['TRANSPARÊNCIA E CONTEXTO','Fontes, conceitos e cuidados'],
 };
 let data;
@@ -116,12 +117,15 @@ function render() {
   $('section-kicker').textContent=sections[active][0];
   $('section-title').textContent=sections[active][1];
   const s=state();
-  $('context').textContent=active==='fontes'?'Fontes, cobertura e limitações':`${s.location} · ${s.sex==='Ambos'?'Ambos os sexos':s.sex} · ${s.year} · Todas as idades`;
-  $('filters').hidden=active==='fontes';
-  $('gbd-content').hidden=active==='fontes';
+  const editorial=active==='fontes'||active==='entenda';
+  $('context').textContent=active==='entenda'?'Leituras 2023–2026 · Síntese educativa':active==='fontes'?'Fontes, cobertura e limitações':`${s.location} · ${s.sex==='Ambos'?'Ambos os sexos':s.sex} · ${s.year} · Todas as idades`;
+  $('filters').hidden=editorial;
+  $('gbd-content').hidden=editorial;
   $('sim-section').hidden=active!=='mortalidade';
   $('sources-section').hidden=active!=='fontes';
-  if(active==='fontes') renderSources(); else renderGbd();
+  $('education-section').hidden=active!=='entenda';
+  $('education-references').hidden=!editorial;
+  if(active==='fontes') renderSources(); else if(!editorial) renderGbd();
   if(active==='mortalidade') renderSim();
 }
 
