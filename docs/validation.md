@@ -47,3 +47,30 @@ Teste de navegador ampliado: esquema escuro mesmo com preferência do sistema cl
 ### Correção para visitantes com estilos antigos em cache
 
 GitHub Pages respondeu `Cache-Control: max-age=600`, e o HTML reutilizava a URL `styles.css` da versão clara. O teste `python tests/cache_check.py` reproduziu o problema mantendo o cache real do Chromium: após carregar a versão clara e receber HTML novo, o tema permaneceu claro sem nova solicitação do CSS. O link foi versionado como `styles.css?v=dark-1`; o mesmo teste passou sem limpar cache. O HTML também pode permanecer temporariamente em cache; abrir `?v=dark-1` no endereço da página força uma URL nova para ele. Não foi possível inspecionar diretamente o navegador da usuária.
+
+## Versão 1.1 — conteúdo educativo — 15/11/2026
+
+Desenho e execução aprovados na conversa. Nova aba `#entenda`, cinco grupos de conteúdo (risco/prevenção, tipos/biomarcadores, diagnóstico/estadiamento, princípios de tratamento, perguntas expansíveis) e bibliografia compartilhada com Fontes. Conteúdo editorial estático no HTML; sem dependências novas. `data/` e `data-model.mjs` permanecem sem alterações contra `2bbaaaa`.
+
+### Leitura e decisões editoriais
+
+- Oito PDFs recentes representam cinco documentos únicos; quatro cópias byte a byte do artigo Medicine foram deduplicadas. PDFs antigos sem relação ficaram fora do escopo.
+- Tahayneh, Idkedek e Abu Akar: J. Clin. Med. 2025;14:1025, DOI `10.3390/jcm14031025`, publicado em 06/02/2025; Alduais et al.: Medicine 2023;102:e32899, DOI `10.1097/MD.0000000000032899`. Ambas revisões narrativas, CC BY 4.0; citadas como apoio, não como protocolos.
+- DDT: Portaria SAS/MS 957, 26/09/2014. Identificada como contexto histórico. Não certificamos vigência jurídica, disponibilidade no SUS ou atualidade das condutas.
+- SBOC/GBOT 2026: recebido arquivo v7, conferida versão oficial v8, data impressa 23/06/2026. Comparação de texto extraído mostrou mudança de data e correção de M1b de IVB para IVA na tabela. A tabela não foi copiada e o painel não calcula estadiamento. Comparação textual não audita figuras/metadados.
+- Material de ensino: usados somente temas gerais para perguntas originais. Nenhum identificador ou narrativa do paciente incluído no produto; autoria e autorização de redistribuição desconhecidas. Nenhum PDF recebido ou extração entrou no repositório.
+- Não adicionadas doses, esquemas prescritivos, estimativas INCA ausentes ou percentuais clínicos sem contexto. Avisos distinguem rastreamento de diagnóstico, revisão de diretriz e recomendação de disponibilidade regulatória/assistencial.
+- Conteúdo e privacidade foram inspecionados editorialmente contra as leituras; não usamos asserções de redação como falsa prova de exatidão clínica. Sem revisão médica especializada.
+
+### Evidência local
+
+- Teste HTML e teste de navegação falharam antes da implementação por ausência de `#entenda`; passaram após a inclusão.
+- `python -m unittest discover -s tests -v`: 5/5; `node --test tests/model.test.mjs`: 5/5.
+- `python tests/browser_check.py`: PASS em Chromium, seis abas, acesso direto/reload, bibliografia nas duas seções, filtros ocultos na leitura e preservados no retorno, respostas por teclado, contraste dos componentes testados e 375 px com respostas abertas sem overflow; sem exceções JavaScript. Capturas locais `test-results/education-desktop.png` e `education-mobile.png` inspecionadas.
+- `python tests/cache_check.py`: PASS nos dois cenários reais, claro→escuro e versão `3e7de3a`→educativa. No segundo, a nova aba permaneceu oculta com o JavaScript antigo antes do versionamento; passou com CSS e script principal `?v=education-1`, sem apagar ou desabilitar cache.
+- `git diff --check`: sem erros; avisos Git de normalização LF/CRLF no Windows não são falha de teste.
+- Publicação ainda pendente nesta anotação; resultado público será registrado após deploy e teste real.
+
+### Limites desta atualização
+
+Sem auditoria WCAG integral, leitores de tela reais, Safari ou Firefox; contraste verificado apenas nos componentes selecionados pelo teste. As fontes clínicas e os links não têm atualização automática. Revisão de código não equivale a validação médica.
