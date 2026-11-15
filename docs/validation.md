@@ -110,6 +110,8 @@ Commit de implementação `53efe6f`. Testes novos falharam antes do produto por 
 
 Revisão independente e publicação ainda pendentes nesta anotação. Sem revisão médica especializada, WCAG integral, leitor de tela real, Safari ou Firefox; limitações anteriores continuam.
 
+Conferência editorial adicional: NCI, “Harms of Cigarette Smoking and Health Benefits of Quitting” (página revisada em 19/12/2017, acessada em 15/11/2026): cessação reduz riscos mesmo em idades mais avançadas e não há nível seguro de consumo. Não extraímos percentuais para a calculadora nem inferimos queda de exposição acumulada após parar. https://www.cancer.gov/about-cancer/causes-prevention/risk/tobacco/cessation-fact-sheet.
+
 ### Revisão independente pré-publicação
 
 Revisão do range `91f914f..e41fb4c`: nenhum achado crítico ou importante; parecer favorável à publicação. Repetiu Python 5/5, Node 5/5, navegador e os dois cenários de cache. Conferiu data, edição TNM e escopo da SBOC v8, sem certificar exatidão médica de toda a prosa. Paginação indicada nos cards conferida pelo implementador com os marcadores de página das extrações (contagem física dos PDFs), não por auditoria do revisor.

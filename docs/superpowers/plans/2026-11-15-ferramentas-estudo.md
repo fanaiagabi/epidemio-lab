@@ -22,11 +22,11 @@
 ### Task 1: Ferramentas completas
 **Files:** criar study-tools.mjs, tests/study.test.mjs e tests/study_check.py; editar index.html, app.js, styles.css e tests/cache_check.py.
 **Interfaces:** calculateExposure(cigarettes:number, years:number) -> number|null (null para valores não finitos/negativos); initStudyTools() -> void; IDs smoking-dialog, glossary-dialog. Nenhuma mudança no modelo epidemiológico.
-- [ ] Escrever testes Node: 10×20=10, 20×10=10, 5×2.5=.625, zero, negativos, NaN/Infinity/overflow.
-- [ ] Escrever teste Chromium: abrir por botão/teclado, exemplo, quantidade/escala/fração dos blocos, gráfico/tabela, vazio/negativo, reset, glossário por termo/acento e sem resultado, foco/Escape, celular e reduced-motion, ferramentas disponíveis sem JSON. Ver falhas antes do produto.
-- [ ] Implementar dois diálogos e módulo mínimo, estilos e assets study-1. Referências e limites editoriais no HTML.
-- [ ] Acrescentar regressão de cache education-1→study-1 (mesmo cache real do teste existente), botões funcionam após atualização. Ver falha sem novo versionamento e passar com versão nova.
-- [ ] Rodar unittest, node --test tests/*.test.mjs, browser_check, study_check e cache_check; inspecionar screenshots desktop/mobile. Commit.
+- [x] Escrever testes Node: 10×20=10, 20×10=10, 5×2.5=.625, zero, negativos, NaN/Infinity/overflow.
+- [x] Escrever teste Chromium: abrir por botão/teclado, exemplo, quantidade/escala/fração dos blocos, gráfico/tabela, vazio/negativo, reset, glossário por termo/acento e sem resultado, foco/Escape, celular e reduced-motion, ferramentas disponíveis sem JSON. Ver falhas antes do produto.
+- [x] Implementar dois diálogos e módulo mínimo, estilos e assets study-1. Referências e limites editoriais no HTML.
+- [x] Acrescentar regressão de cache education-1→study-1 (mesmo cache real do teste existente), botões funcionam após atualização. Ver falha sem novo versionamento e passar com versão nova.
+- [x] Rodar unittest, node --test tests/*.test.mjs, browser_check, study_check e cache_check; inspecionar screenshots desktop/mobile. Commit.
 
 ### Task 2: Revisão e publicação
 **Files:** docs/validation.md e este plano.
