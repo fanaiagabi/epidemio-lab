@@ -39,4 +39,4 @@
 - Baseline ed4789f, worktree limpa/isolada; Python 5/5, Node 5/5 e browser_check PASS.
 - Usuária optou por aplicação direta; não haverá pausa para aprovação de plano.
 - Task 1 concluída em `53efe6f`: RED→GREEN, Python 5/5, Node 7/7, browser_check/study_check e três cenários cache PASS; capturas inspecionadas e dados intactos.
-- Task 2 em andamento: revisão independente pré-publicação solicitada; remote/main conferido em ed4789f, sem divergência.
+- Task 2 concluída: revisão independente sem achados críticos/importantes, publicação fast-forward e testes públicos aprovados; evidências em docs/validation.md. Reconferência pós-restart em 16/11/2026 aprovada, sem refazer implementação.

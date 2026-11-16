@@ -122,11 +122,13 @@ Melhorias menores adiadas: conteúdo educativo estático depende do carregamento
 
 Range `ed4789f..53efe6f`: parecer favorável (`ready to publish: yes`), nenhum achado crítico ou importante. O revisor repetiu Python 5/5, Node 7/7, browser_check, study_check e os três cenários do cache_check contra o servidor local; `git diff --check` limpo e `data/` + `data-model.mjs` intactos no range. Confirmou no código os pontos do Review Focus (inválido nunca vira zero nem mantém resultado antigo; agrupamento com guarda para totais grandes; linha do tempo honesta na duração zero; foco/Escape/reduced-motion; visitantes com cache education-1 recebem as ferramentas).
 
-Melhorias menores adiadas: flicker momentâneo de foco no link calculadora→glossário (estado final correto e testado) e texto de escala exibido junto à mensagem de zero blocos (redundância cosmética).
+Parecer final recuperado após os restarts: quatro observações menores, sem bloqueio. Escape fecha a busca em vez de primeiro limpar seu texto (decisão deliberada para fechamento consistente); a pesquisa permanece ao reabrir o glossário; valores extremos usam notação científica; navegadores antigos sem `:has()` podem permitir rolagem do fundo, embora o diálogo continue funcional. Nenhuma alteração de produto foi necessária.
 
 ### Resultado público confirmado
 
 Publicação validada em 15/11/2026: push fast-forward `ed4789f..79a97c8` para `origin/main`. O HTML público passou a referenciar `app.js?v=study-1` em menos de um minuto (a primeira leitura ainda serviu o HTML anterior, como na publicação anterior; releitura sem cache confirmou a troca). `python tests/browser_check.py 'https://fanaiagabi.github.io/epidemio-lab/?v=study-1'`: PASS com 14 checagens no site público. `python tests/study_check.py 'https://fanaiagabi.github.io/epidemio-lab/?v=study-1'`: PASS com 11 checagens — cálculo, frações/agrupamento, linha do tempo/tabela, zero/inválidos, glossário/busca, foco/teclado, reduced-motion, 375 px, sem persistência ou envio de campos, independência do JSON e sem erros JS. URL de entrega: https://fanaiagabi.github.io/epidemio-lab/?v=study-1
+
+Reconferência pós-restart em 16/11/2026: API Pages `built` em `513a9eb9f1d047ef199e517fc54939abc024f6c5`, sem erro; HTTP 200 com ambos diálogos e assets study-1. Os dois testes completos no endereço público passaram novamente. Não houve novo deploy de produto nem repetição da implementação. Parecer final não certifica acurácia médica (limite mantido), aceita os valores intermediários na tabela em vez de ticks no gráfico (escala explicitada), deixa build/propagação à validação pública acima e exclui os commits somente documentais do range de código.
 
 ### Limites desta atualização
 
